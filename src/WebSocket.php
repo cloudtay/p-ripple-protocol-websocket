@@ -43,8 +43,8 @@ namespace Cclilshy\PRippleProtocolWebsocket;
 
 use Core\FileSystem\FileException;
 use Core\Output;
-use Core\Std\ProtocolStd;
-use Core\Std\TunnelStd;
+use Core\Standard\ProtocolStd;
+use Core\Standard\TunnelStd;
 use stdClass;
 use Worker\Socket\TCPConnection;
 

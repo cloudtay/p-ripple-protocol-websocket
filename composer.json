@@ -5,6 +5,7 @@
       "Cclilshy\\PRippleProtocolWebsocket\\": "src/"
     }
   },
+  "license": "MIT",
   "authors": [
     {
       "name": "cclilshy",
@@ -12,9 +13,9 @@
     }
   ],
   "require": {
-    "cclilshy/p-ripple": "dev-main"
+    "cclilshy/p-ripple": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "version": "dev-main"
+  "version": "v1.0.0"
 }

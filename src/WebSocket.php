@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * Copyright (c) 2023 cclilshy
  * Contact Information:
@@ -37,11 +37,10 @@
  * 由于软件或软件的使用或其他交易而引起的任何索赔、损害或其他责任承担责任。
  */
 
-declare(strict_types=1);
 
 namespace Cclilshy\PRippleProtocolWebsocket;
 
-use Core\FileSystem\FileException;
+use Core\Filesystem\Exception\FileException;
 use Core\Output;
 use Core\Standard\ProtocolStd;
 use Core\Standard\TunnelStd;

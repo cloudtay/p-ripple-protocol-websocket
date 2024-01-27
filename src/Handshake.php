@@ -39,8 +39,9 @@
 
 namespace Cclilshy\PRippleProtocolWebsocket;
 
-use Core\Filesystem\Exception\FileException;
-use Worker\Socket\TCPConnection;
+use Cclilshy\PRipple\Filesystem\Exception\FileException;
+use Cclilshy\PRipple\Worker\Socket\TCPConnection;
+
 
 /**
  * Websocket握手处理器

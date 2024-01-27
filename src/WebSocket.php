@@ -40,12 +40,12 @@
 
 namespace Cclilshy\PRippleProtocolWebsocket;
 
-use Core\Filesystem\Exception\FileException;
-use Core\Output;
-use Core\Standard\ProtocolStd;
-use Core\Standard\TunnelStd;
+use Cclilshy\PRipple\Filesystem\Exception\FileException;
+use Cclilshy\PRipple\Core\Output;
+use Cclilshy\PRipple\Core\Standard\ProtocolStd;
+use Cclilshy\PRipple\Core\Standard\TunnelStd;
 use stdClass;
-use Worker\Socket\TCPConnection;
+use Cclilshy\PRipple\Worker\Socket\TCPConnection;
 
 /**
  * Websocket协议

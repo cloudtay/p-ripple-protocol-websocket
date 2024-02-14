@@ -43,7 +43,6 @@ namespace Cclilshy\PRippleProtocolWebsocket;
 use Cclilshy\PRipple\Filesystem\Exception\FileException;
 use Cclilshy\PRipple\Core\Output;
 use Cclilshy\PRipple\Core\Standard\ProtocolStd;
-use Cclilshy\PRipple\Core\Standard\TunnelStd;
 use stdClass;
 use Cclilshy\PRipple\Worker\Socket\TCPConnection;
 
@@ -54,11 +53,12 @@ class WebSocket implements ProtocolStd
 {
     /**
      * SEND VIA INTERFACE
-     * @param TunnelStd $tunnel
-     * @param string    $context
+     * @param TCPConnection $tunnel
+     * @param string        $context
      * @return bool
+     * @throws FileException
      */
-    public function send(TunnelStd $tunnel, string $context): bool
+    public function send(TCPConnection $tunnel, string $context): bool
     {
         $build = WebSocket::build($context);
         return (bool)$tunnel->write($build);
@@ -98,15 +98,12 @@ class WebSocket implements ProtocolStd
 
     /**
      * 报文切片
-     * @param TunnelStd $tunnel ANY CHANNEL
+     * @param TCPConnection $tunnel ANY CHANNEL
      * @return string|false|null SLICE RESULT
      */
-    public function cut(TunnelStd $tunnel): string|null|false
+    public function cut(TCPConnection $tunnel): string|null|false
     {
-        if ($tunnel instanceof TCPConnection) {
-            return WebSocket::parse($tunnel);
-        }
-        return false;
+        return WebSocket::parse($tunnel);
     }
 
     /**
@@ -161,10 +158,10 @@ class WebSocket implements ProtocolStd
 
     /**
      * Adjustment not supported
-     * @param TunnelStd $tunnel
+     * @param TCPConnection $tunnel
      * @return string|false
      */
-    public function corrective(TunnelStd $tunnel): string|false
+    public function corrective(TCPConnection $tunnel): string|false
     {
         return false;
     }

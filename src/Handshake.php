@@ -39,6 +39,7 @@
 
 namespace Cclilshy\PRippleProtocolWebsocket;
 
+use Cclilshy\PRipple\Core\Net\Exception;
 use Cclilshy\PRipple\Filesystem\Exception\FileException;
 use Cclilshy\PRipple\Worker\Socket\TCPConnection;
 
@@ -64,11 +65,11 @@ class Handshake
     /**
      * @param TCPConnection $client
      * @return bool|null
-     * @throws FileException
+     * @throws FileException|Exception
      */
     public static function accept(TCPConnection $client): bool|null
     {
-        $identityInfo = Handshake::verify($client->cache);
+        $identityInfo = Handshake::verify($client->buffer);
         if ($identityInfo === null) {
             return null;
         } elseif ($identityInfo === false) {
@@ -77,7 +78,7 @@ class Handshake
             $client->info       = $identityInfo;
             $secWebSocketAccept = Handshake::getSecWebSocketAccept($client->info['Sec-WebSocket-Key']);
             $client->write(Handshake::generateResultContext($secWebSocketAccept));
-            $client->cleanCache();
+            $client->cleanBuffer();
             return true;
         }
     }

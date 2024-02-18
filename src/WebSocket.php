@@ -40,6 +40,7 @@
 
 namespace Cclilshy\PRippleProtocolWebsocket;
 
+use Cclilshy\PRipple\Core\Net\Exception;
 use Cclilshy\PRipple\Filesystem\Exception\FileException;
 use Cclilshy\PRipple\Core\Output;
 use Cclilshy\PRipple\Core\Standard\ProtocolStd;
@@ -56,7 +57,7 @@ class WebSocket implements ProtocolStd
      * @param TCPConnection $tunnel
      * @param string        $context
      * @return bool
-     * @throws FileException
+     * @throws FileException|Exception
      */
     public function send(TCPConnection $tunnel, string $context): bool
     {
@@ -112,7 +113,7 @@ class WebSocket implements ProtocolStd
      */
     public function parse(TCPConnection $tunnel): string|null|false
     {
-        $context       = $tunnel->cache();
+        $context       = $tunnel->buffer();
         $payload       = '';
         $payloadLength = '';
         $mask          = '';
@@ -152,7 +153,7 @@ class WebSocket implements ProtocolStd
                 $payload[$i] = chr(ord($payload[$i]) ^ ord($maskingKey[$i % 4]));
             }
         }
-        $tunnel->cleanCache();
+        $tunnel->cleanBuffer();
         return $payload;
     }
 
@@ -170,6 +171,7 @@ class WebSocket implements ProtocolStd
      * 请求握手
      * @param TCPConnection $client
      * @return bool|null
+     * @throws Exception
      */
     public function handshake(TCPConnection $client): bool|null
     {
@@ -179,5 +181,9 @@ class WebSocket implements ProtocolStd
             Output::printException($exception);
             return false;
         }
+    }
+
+    public function __construct(mixed $config = null)
+    {
     }
 }

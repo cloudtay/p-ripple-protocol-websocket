@@ -54,15 +54,15 @@ class WebSocket implements ProtocolStd
 {
     /**
      * SEND VIA INTERFACE
-     * @param TCPConnection $tunnel
+     * @param TCPConnection $TCPConnection
      * @param string        $context
      * @return bool
      * @throws FileException|Exception
      */
-    public function send(TCPConnection $tunnel, string $context): bool
+    public function send(TCPConnection $TCPConnection, string $context): bool
     {
         $build = WebSocket::build($context);
-        return (bool)$tunnel->write($build);
+        return boolval($TCPConnection->write($build));
     }
 
     /**
@@ -99,21 +99,23 @@ class WebSocket implements ProtocolStd
 
     /**
      * 报文切片
-     * @param TCPConnection $tunnel ANY CHANNEL
+     * @param TCPConnection $TCPConnection ANY CHANNEL
      * @return string|false|null SLICE RESULT
      */
-    public function cut(TCPConnection $tunnel): string|null|false
+    public function cut(TCPConnection $TCPConnection): string|null|false
     {
-        return WebSocket::parse($tunnel);
+        return WebSocket::parse($TCPConnection);
     }
 
     /**
-     * @param TCPConnection $tunnel
+     * @param TCPConnection $TCPConnection
      * @return string|false|null
      */
-    public function parse(TCPConnection $tunnel): string|null|false
+    public function parse(TCPConnection $TCPConnection): string|null|false
     {
-        $context       = $tunnel->buffer();
+        if (!$context = $TCPConnection->buffer()) {
+            return null;
+        }
         $payload       = '';
         $payloadLength = '';
         $mask          = '';
@@ -153,16 +155,16 @@ class WebSocket implements ProtocolStd
                 $payload[$i] = chr(ord($payload[$i]) ^ ord($maskingKey[$i % 4]));
             }
         }
-        $tunnel->cleanBuffer();
+        $TCPConnection->cleanBuffer();
         return $payload;
     }
 
     /**
      * Adjustment not supported
-     * @param TCPConnection $tunnel
+     * @param TCPConnection $TCPConnection
      * @return string|false
      */
-    public function corrective(TCPConnection $tunnel): string|false
+    public function corrective(TCPConnection $TCPConnection): string|false
     {
         return false;
     }

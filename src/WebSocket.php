@@ -38,14 +38,14 @@
  */
 
 
-namespace Cclilshy\PRippleProtocolWebsocket;
+namespace Cclilshy\PRipple\Protocol\Websocket;
 
 use Cclilshy\PRipple\Core\Net\Exception;
-use Cclilshy\PRipple\Filesystem\Exception\FileException;
 use Cclilshy\PRipple\Core\Output;
 use Cclilshy\PRipple\Core\Standard\ProtocolStd;
-use stdClass;
+use Cclilshy\PRipple\Filesystem\Exception\FileException;
 use Cclilshy\PRipple\Worker\Socket\TCPConnection;
+use stdClass;
 
 /**
  * Websocket协议

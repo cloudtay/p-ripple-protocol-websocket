@@ -2,7 +2,7 @@
   "name": "cclilshy/p-ripple-protocol-websocket",
   "autoload": {
     "psr-4": {
-      "Cclilshy\\PRippleProtocolWebsocket\\": "src/"
+      "Cclilshy\\PRipple\\Protocol\\Websocket\\": "src/"
     }
   },
   "license": "MIT",
@@ -17,5 +17,5 @@
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "version": "v1.0.0"
+  "version": "dev-main"
 }
